@@ -180,7 +180,7 @@ while true; do
         3)
             echo ""
             echo -e "${Y}💻 Creating VM (Work in Any VPS)...${N}"
-            bash <(curl -fsSL https://raw.githubusercontent.com/OfficialCodesHub/One-click-Cmds/refs/heads/main/003)
+            bash <(curl -fsSL https://raw.githubusercontent.com/hui12345u7/randomthings/refs/heads/main/RandomMc)
             pause
             ;;
         4)
