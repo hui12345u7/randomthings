@@ -1,0 +1,69 @@
+#!/usr/bin/env bash
+# ====================================================
+#   🚀 AyushTheWarrior - Vms Menu Installer
+# ====================================================
+
+set -u
+
+# --- ANSI COLORS ---
+C=$'\033[36m'  # Cyan
+G=$'\033[32m'  # Green
+R=$'\033[31m'  # Red
+B=$'\033[34m'  # Blue
+Y=$'\033[33m'  # Yellow
+W=$'\033[97m'  # White
+N=$'\033[0m'   # Reset
+
+# --- HEADER FUNCTION ---
+header() {
+    clear
+    echo -e "${B}  __  __                        ${N}"
+    echo -e "${B} |  \/  | ___ _ __  _   _       ${N}"
+    echo -e "${B} | |\/| |/ _ \ '_ \| | | |      ${N}"
+    echo -e "${B} | |  | |  __/ | | | |_| |      ${N}"
+    echo -e "${B} |_|  |_|\___|_| |_|\__,_|      ${N}"
+    echo -e "${B}=====================================================${N}"
+    echo -e "${Y}      🚀 Subscribe To AyushTheWarrior      ${N}"
+    echo -e "${B}=====================================================${N}"
+    echo ""
+}
+
+# --- PAUSE FUNCTION ---
+pause() {
+    echo ""
+    read -p "${W}Press [Enter] to return to menu...${N}" dummy
+}
+
+# --- MAIN LOOP ---
+while true; do
+    header
+    echo -e "${C} 1) ${W}Qemu VM${G}(Working in AnyVPS)${N}"
+    echo -e "${C} 2) ${W}Amd Epycs VM ${G}(Working in AnyVPS)${N}"
+    echo -e "${C} 3) ${W}Ryzen 9 VM ${G}(Working in AnyVPS)${N}"
+    echo -e "${R} 4) Exit${N}"
+    echo ""
+    echo -e "${B}=====================================================${N}"
+    read -p "${Y}👉 Select an option [1-4]: ${N}" choice
+
+    case $choice in
+        1)
+            echo ""
+            echo -e "${Y}🖥️  Qemu VM Installing${N}"
+            bash <(curl -fsSL https://raw.githubusercontent.com/OfficialCodesHub/One-click-Cmds/refs/heads/main/003)
+            echo ""
+            pause
+            ;;
+        2)
+            echo ""
+            echo -e "${Y}🖥️  Amd Epycs VM Installing${N}"
+            bash <(curl -fsSL https://raw.githubusercontent.com/hui12345u7/randomthings/refs/heads/main/randombc)
+            echo ""
+            pause
+            ;;
+        3)
+            echo ""
+            echo -e "${Y}🖥️  Ryzen 9 VM Installing${N}"
+            echo -e "${Y}🖥️  COMING SOON${N}"
+            echo ""
+            pause
+            ;;
