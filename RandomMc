@@ -56,7 +56,7 @@ while true; do
         2)
             echo ""
             echo -e "${Y}🖥️  Amd Epycs VM Installing${N}"
-            bash <(curl -fsSL https://raw.githubusercontent.com/hui12345u7/randomthings/refs/heads/main/randombc)
+            echo -e "${Y}🖥️  Coming SOON${N}"
             echo ""
             pause
             ;;
