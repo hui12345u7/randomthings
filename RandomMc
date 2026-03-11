@@ -67,3 +67,14 @@ while true; do
             echo ""
             pause
             ;;
+        4)
+            echo -e "${G}AYUSHTHEWARRIOR NODE ROCKS 😎🔥${N}"
+            sleep 1
+            exit 0
+            ;;
+        *)
+            echo -e "${R}Invalid Option!${N}"
+            sleep 1.5
+            ;;
+    esac
+done
