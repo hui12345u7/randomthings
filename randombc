@@ -372,7 +372,7 @@ start_vm() {
             -machine pc-i440fx-8.2
             -m "$MEMORY"
             -smp "$CPUS"
-            -cpu EPYC-v4,model-id="AMD EPYC 7763 12-Core Processor"
+            -cpu EPYC-v4,model-id="AMD EPYC 7763 12-Core Processor",vendor=AuthenticAMD,+svm
             -display gtk
             -drive "file=$IMG_FILE,format=qcow2,if=virtio"
             -drive "file=$SEED_FILE,format=raw,if=virtio"
