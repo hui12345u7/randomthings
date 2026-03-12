@@ -200,8 +200,8 @@ while true; do
             ;;
         7)
             echo ""
-            echo -e "${Y}🖥️  Lxd Installer${N}"
-            bash <(curl -fsSL https://raw.githubusercontent.com/OfficialCodesHub/One-click-Cmds/refs/heads/main/lxd%20installer)
+            echo -e "${Y}🖥️  HVM+LXD+CLOUDFLARE INSTALLER${N}"
+            echo -e "${Y}🖥️  COMING SOON${N}"
             pause
             ;;
         8)
