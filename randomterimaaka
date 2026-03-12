@@ -147,7 +147,7 @@ while true; do
     echo -e "${C} 4) ${W}Pterodactyl Panel Installer${N}"
     echo -e "${C} 5) ${W}ALL MINECRAFT Panel Installer${N}"
     echo -e "${C} 6) ${W}Blueprint + Addon Installer${N}"
-    echo -e "${C} 7) ${W}Lxd Installer${N}"
+    echo -e "${C} 7) ${W}HVM+LXD+CLOUDFLARE INSTALLER${N}"
     echo -e "${C} 8) ${W}SFTP Fixer${N}"
     echo -e "${C} 9) ${W}Tailscale VPN Installer${N}"
     echo -e "${R} 10) Exit${N}"
