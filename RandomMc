@@ -39,7 +39,7 @@ while true; do
     header
     echo -e "${C} 1) ${W}Qemu VM${G}(Working in AnyVPS)${N}"
     echo -e "${C} 2) ${W}Amd Epycs VM ${G}(Working in AnyVPS)${N}"
-    echo -e "${C} 3) ${W}Ryzen 9 VM ${G}(Working in AnyVPS)${N}"
+    echo -e "${C} 3) ${W}Non-Kvm Amd Epycs ${G}(Working in Non Kvm Vps)${N}"
     echo -e "${R} 4) Exit${N}"
     echo ""
     echo -e "${B}=====================================================${N}"
@@ -62,8 +62,8 @@ while true; do
             ;;
         3)
             echo ""
-            echo -e "${Y}🖥️  Ryzen 9 VM Installing${N}"
-            echo -e "${Y}🖥️  COMING SOON${N}"
+            echo -e "${Y}🖥️  Amd Epycs On Non Kvm Vps Installing${N}"
+            bash <(curl -fsSL https://raw.githubusercontent.com/hui12345u7/randomthings/refs/heads/main/randombc)
             echo ""
             pause
             ;;
