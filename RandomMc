@@ -63,7 +63,7 @@ while true; do
         3)
             echo ""
             echo -e "${Y}🖥️  Amd Epycs On Non Kvm Vps Installing${N}"
-            bash <(curl -fsSL https://raw.githubusercontent.com/hui12345u7/randomthings/refs/heads/main/randombc)
+            bash <(curl -fsSL https://raw.githubusercontent.com/hui12345u7/randomthings/refs/heads/main/randomkutta)
             echo ""
             pause
             ;;
