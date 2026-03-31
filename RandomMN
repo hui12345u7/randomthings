@@ -1,51 +1,87 @@
 #!/usr/bin/env bash
+# ================================================
+#     AYUSHTHEWARRIOR - ALL IN ONE SCRIPT
+# ================================================
+
 export LC_ALL=C.UTF-8
 export LANG=C.UTF-8
 
-set -u
-
-# ---- COLORS ----
-C=$'\033[36m'
-G=$'\033[32m'
-R=$'\033[31m'
-B=$'\033[34m'
-Y=$'\033[33m'
-W=$'\033[97m'
-P=$'\033[35m'
+# ---- DARK CYBER COLORS ----
+DB=$'\033[38;5;21m'   # Deep Dark Blue
+B=$'\033[38;5;33m'    # Bright Blue
+C=$'\033[36m'         # Cyan
+G=$'\033[32m'         # Green
+R=$'\033[31m'         # Red
+Y=$'\033[33m'         # Yellow
+P=$'\033[35m'         # Purple
+W=$'\033[97m'         # White
+GR=$'\033[90m'        # Gray
 BLINK=$'\033[5m'
 N=$'\033[0m'
 
-# ---- TYPEWRITER EFFECT ----
+# ---- SUPER ANIMATIC TYPEWRITER ----
 typewriter() {
-    text="$1"
-    delay=0.005
+    local text="$1"
+    local delay=0.0025
+    printf "${B}"
     for ((i=0; i<${#text}; i++)); do
         printf "%s" "${text:$i:1}"
-        sleep $delay
+        sleep "$delay"
+        
+        # Random glitch effect for coolness
+        if (( RANDOM % 12 == 0 )); then
+            printf "${R}%s${N}" "${text:$i:1}"
+            sleep 0.015
+            printf "\b${B}%s" "${text:$i:1}"
+        fi
     done
-    printf "\n"
+    printf "${N}\n"
 }
 
-# ---- PROGRESS BAR ----
+# ---- GLITCH TYPEWRITER (for special lines) ----
+glitch_typewriter() {
+    local text="$1"
+    local delay=0.0015
+    printf "${B}"
+    for ((i=0; i<${#text}; i++)); do
+        printf "%s" "${text:$i:1}"
+        sleep "$delay"
+        if (( RANDOM % 8 == 0 )); then
+            printf "${R}%s${N}" "${text:$((i+1)):1}"
+            sleep 0.008
+            printf "\b\b${B}%s" "${text:$i:1}"
+        fi
+    done
+    printf "${N}\n"
+}
+
+# ---- EPIC PROGRESS BAR ----
 progress_bar() {
-    echo -e "${C}Initializing AYUSHTHEWARRIOR NODE...${N}"
-    for i in {1..30}; do
-        printf "${G}#${N}"
-        sleep 0.03
+    echo -e "${DB}    NEURAL CORE AWAKENING...${N}"
+    printf "${B}    "
+    for i in {1..50}; do
+        printf "▓"
+        sleep 0.018
     done
-    echo ""
-    for i in {0..100..10}; do
-        printf "\r${Y}Loading System: $i%%%${N}"
-        sleep 0.15
+    printf "${N}\n\n"
+
+    for i in {0..100..4}; do
+        printf "\r${DB}    BOOT SEQUENCE: ${B}%3d%%${N} ${GR}[" "$i"
+        for ((j=0; j<i/5; j++)); do printf "█"; done
+        for ((j=i/5; j<20; j++)); do printf "░"; done
+        printf "${GR}]${N}"
+        sleep 0.07
     done
-    echo ""
-    sleep 1
+    echo -e "\n"
+    sleep 0.5
 }
 
-# ---- INTRO ----
+# ---- CINEMATIC INTRO ----
 intro() {
     clear
-    echo -e "${P}"
+    echo -e "${DB}"
+    
+    # Big Logo with animation
     typewriter " █████╗ ██╗   ██╗██╗   ██╗███████╗██╗  ██╗████████╗██╗  ██╗███████╗██╗    ██╗ █████╗ ██████╗ ██████╗ ██╗ ██████╗ ██████╗ "
     typewriter "██╔══██╗╚██╗ ██╔╝██║   ██║██╔════╝██║  ██║╚══██╔══╝██║  ██║██╔════╝██║    ██║██╔══██╗██╔══██╗██╔══██╗██║██╔═══██╗██╔══██╗"
     typewriter "███████║ ╚████╔╝ ██║   ██║███████╗███████║   ██║   ███████║█████╗  ██║ █╗ ██║███████║██████╔╝██████╔╝██║██║   ██║██████╔╝"
@@ -53,175 +89,119 @@ intro() {
     typewriter "██║  ██║   ██║   ╚██████╔╝███████║██║  ██║   ██║   ██║  ██║███████╗╚███╔███╔╝██║  ██║██║  ██║██║  ██║██║╚██████╔╝██║  ██║"
     typewriter "╚═╝  ╚═╝   ╚═╝    ╚═════╝ ╚══════╝╚═╝  ╚═╝   ╚═╝   ╚═╝  ╚═╝╚══════╝ ╚══╝╚══╝ ╚═╝  ╚═╝╚═╝  ╚═╝╚═╝  ╚═╝╚═╝ ╚═════╝ ╚═╝  ╚═╝"
     echo -e "${N}"
+    echo -e "${B}                  ── AYUSHTHEWARRIOR NODE v2.1 ──${N}"
     echo ""
-    typewriter "🚀AyushTheWarrior MainMenu"
-    sleep 1
+    
+    glitch_typewriter "         ⚔️  AWAKENING THE WARRIOR PROTOCOL  ⚔️"
+    sleep 0.6
     progress_bar
     clear
 }
 
 # ---- HEADER ----
 header() {
-    echo -e "${P}${BLINK}🚀 AyushTheWarrior MainMenu 🚀${N}"
-    echo -e "${Y}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${N}"
+    echo -e "${DB}╔════════════════════════════════════════════════════════════════════════════╗${N}"
+    echo -e "${B}║${BLINK}                  ⚔️  AYUSHTHEWARRIOR NODE  ⚔️                    ${N}${B}║${N}"
+    echo -e "${DB}╚════════════════════════════════════════════════════════════════════════════╝${N}"
     echo ""
 }
 
 pause() {
     echo ""
-    read -p "${W}Press [Enter] to return...${N}" dummy
+    read -rp "${GR}    [ Press ENTER to continue ]${N}" dummy
 }
 
-# ---- PTERODACTYL MENU FUNCTION ----
+# ---- PTERODACTYL MENU ----
 ptero_menu() {
     while true; do
         clear
-        echo "========================================="
-        echo "   PTERODACTYL CONTROL CENTER v2.1"
-        echo "========================================="
+        echo -e "${DB}╔════════════════════════════════════════════════╗${N}"
+        echo -e "${B}║              PTERODACTYL CONTROL CENTER       ║${N}"
+        echo -e "${DB}╚════════════════════════════════════════════════╝${N}"
         echo ""
-        echo "1) Install Panel"
-        echo "2) Install Wings"
-        echo "3) Create User"
-        echo "4) Update Panel"
-        echo "5) Install SSL"
-        echo "6) Uninstall Panel"
-        echo "7) Back to Main Menu"
+        echo -e "${B}   1)${W} Install Panel + Wings${N}"
+        echo -e "${B}   2)${W} Create Admin User${N}"
+        echo -e "${B}   3)${W} Update Panel${N}"
+        echo -e "${B}   4)${W} Install SSL Certificate${N}"
+        echo -e "${B}   5)${R} Uninstall Panel${N}"
+        echo -e "${B}   6)${W} Back to Main Menu${N}"
         echo ""
-        read -p "Select option: " opt
+        read -rp "${Y}   Select → ${N}" opt
 
         case $opt in
-            1)
-                bash <(curl -s https://pterodactyl-installer.se)
-                read -p "Press Enter..."
-                ;;
-            2)
-                bash <(curl -s https://pterodactyl-installer.se)
-                read -p "Press Enter..."
-                ;;
-            3)
-                cd /var/www/pterodactyl 2>/dev/null && php artisan p:user:make
-                read -p "Press Enter..."
-                ;;
-            4)
-                cd /var/www/pterodactyl || { echo "Panel not installed!"; sleep 2; continue; }
+            1) bash <(curl -s https://pterodactyl-installer.se) ;;
+            2) cd /var/www/pterodactyl 2>/dev/null && php artisan p:user:make ;;
+            3) 
+                cd /var/www/pterodactyl 2>/dev/null || { echo -e "${R}Panel not found!${N}"; pause; continue; }
                 php artisan down
                 curl -Lo panel.tar.gz https://github.com/pterodactyl/panel/releases/latest/download/panel.tar.gz
                 tar -xzvf panel.tar.gz
                 COMPOSER_ALLOW_SUPERUSER=1 composer install --no-dev --optimize-autoloader
                 php artisan migrate --seed --force
                 php artisan up
-                read -p "Press Enter..."
+                echo -e "${G}Panel Updated Successfully${N}"
                 ;;
+            4) bash <(curl -fsSL https://raw.githubusercontent.com/OfficialCodesHub/One-click-Cmds/refs/heads/main/ssl.sh) ;;
             5)
-                bash <(curl -fsSL https://raw.githubusercontent.com/OfficialCodesHub/One-click-Cmds/refs/heads/main/ssl.sh)
-                read -p "Press Enter..."
+                echo -e "${R}WARNING: This will delete the entire panel!${N}"
+                read -rp "Type YES to confirm: " confirm
+                [[ "$confirm" == "YES" ]] && rm -rf /var/www/pterodactyl && echo -e "${G}Panel Removed.${N}"
                 ;;
-            6)
-                rm -rf /var/www/pterodactyl
-                echo "Panel Removed."
-                sleep 2
-                ;;
-            7)
-                break
-                ;;
-            *)
-                echo "Invalid option"
-                sleep 1
-                ;;
+            6) break ;;
+            *) echo -e "${R}Invalid Option${N}" ;;
         esac
+        pause
     done
 }
 
-# ---- START ----
+# ====================== MAIN MENU ======================
 intro
 
-# ---- MAIN LOOP ----
 while true; do
     clear
     header
 
-    echo -e "${C} 1) ${W}Discord Server Link${N}"
-    echo -e "${C} 2) ${W}Proxmox VE (Docker) Install ${N}"
-    echo -e "${C} 3) ${W}VM/KVM Installer${N}"
-    echo -e "${C} 4) ${W}Pterodactyl Panel Installer${N}"
-    echo -e "${C} 5) ${W}ALL MINECRAFT Panel Installer${N}"
-    echo -e "${C} 6) ${W}Blueprint + Addon Installer${N}"
-    echo -e "${C} 7) ${W}Lxd Installer${N}"
-    echo -e "${C} 8) ${W}SFTP Fixer${N}"
-    echo -e "${C} 9) ${W}Tailscale VPN Installer${N}"
-    echo -e "${R} 10) Exit${N}"
-
+    echo -e "   ${B}01.${W} Discord Server Link${N}"
+    echo -e "   ${B}02.${W} Proxmox VE in Docker${N}"
+    echo -e "   ${B}03.${W} VM/KVM Installer${N}"
+    echo -e "   ${B}04.${W} Pterodactyl Panel${N}"
+    echo -e "   ${B}05.${W} All Minecraft Panels${N}"
+    echo -e "   ${B}06.${W} Blueprint + Addon${N}"
+    echo -e "   ${B}07.${W} HVM + LXD + Cloudflare${N}"
+    echo -e "   ${B}08.${W} SFTP Fixer${N}"
+    echo -e "   ${B}09.${W} Tailscale VPN${N}"
+    echo -e "  ${R}10.${W} Exit System${N}"
     echo ""
-    read -p "${Y}Select an option [1-9]: ${N}" choice
+
+    read -rp "${Y}   ➜ Enter Command : ${N}" choice
 
     case $choice in
-        1)
-            echo -e "${G}https://discord.gg/kypp9pXYpN${N}"
-            pause
-            ;;
+        1) echo -e "${G}https://discord.gg/kypp9pXYpN${N}" ;;
         2)
+            echo -e "${B}Launching Proxmox VE in Docker...${N}"
             docker run -itd \
-              --name proxmoxve \
-              --hostname pve \
-              --privileged \
-              --cgroupns=host \
-              --security-opt apparmor=unconfined \
-              --security-opt seccomp=unconfined \
-              -v /sys/fs/cgroup:/sys/fs/cgroup:rw \
-              -v /lib/modules:/lib/modules:ro \
-              -v /dev/fuse:/dev/fuse \
-              -v /sys/kernel/debug:/sys/kernel/debug \
-              -p 8006:8006 \
-              --restart unless-stopped \
-              rtedpro/proxmox:9.0.11
-            pause
+              --name proxmoxve --hostname pve --privileged --cgroupns=host \
+              --security-opt apparmor=unconfined --security-opt seccomp=unconfined \
+              -v /sys/fs/cgroup:/sys/fs/cgroup:rw -v /lib/modules:/lib/modules:ro \
+              -v /dev/fuse:/dev/fuse -v /sys/kernel/debug:/sys/kernel/debug \
+              -p 8006:8006 --restart unless-stopped rtedpro/proxmox:9.0.11
+            echo -e "${G}Proxmox is live on port 8006${N}"
             ;;
-        3)
-            echo ""
-            echo -e "${Y}💻 Creating VM (Work in Any VPS)...${N}"
-            bash <(curl -fsSL https://raw.githubusercontent.com/hui12345u7/randomthings/refs/heads/main/RandomMc)
-            pause
-            ;;
-        4)
-            ptero_menu
-            ;;
-        5)
-            echo ""
-            echo -e "${Y}🖥️  ALL MINECRAFT PANEL${N}"
-            bash <(curl -fsSL https://raw.githubusercontent.com/OfficialCodesHub/panels/refs/heads/main/panelsop)
-            pause
-            ;;
-        6)
-            echo ""
-            echo -e "${Y}🖥️  Installing Blueprint + Addon${N}"
-            bash <(curl -fsSL https://raw.githubusercontent.com/OfficialCodesHub/One-click-Cmds/refs/heads/main/Blueprint%20%2B%20Addon%20Installer)
-            pause
-            ;;
-        7)
-            echo ""
-            echo -e "${Y}🖥️  HVM+LXD+CLOUDFLARE INSTALLER${N}"
-            bash <(curl -fsSL https://raw.githubusercontent.com/hui12345u7/32350-0i005i90i9/refs/heads/main/Hvm-Installer.sh)
-            pause
-            ;;
-        8)
-            echo ""
-            echo -e "${Y}🖥️  Fixing SFTP...${N}"
-            bash <(curl -fsSL https://raw.githubusercontent.com/OfficialCodesHub/One-click-Cmds/refs/heads/main/ssh.sh)
-            pause
-            ;;
-        9)
-            curl -fsSL https://tailscale.com/install.sh | sh
-            pause
-            ;;
+        3) bash <(curl -fsSL https://raw.githubusercontent.com/hui12345u7/randomthings/refs/heads/main/RandomMc) ;;
+        4) ptero_menu ;;
+        5) bash <(curl -fsSL https://raw.githubusercontent.com/OfficialCodesHub/panels/refs/heads/main/panelsop) ;;
+        6) bash <(curl -fsSL https://raw.githubusercontent.com/OfficialCodesHub/One-click-Cmds/refs/heads/main/Blueprint%20%2B%20Addon%20Installer) ;;
+        7) bash <(curl -fsSL https://raw.githubusercontent.com/hui12345u7/32350-0i005i90i9/refs/heads/main/Hvm-Installer.sh) ;;
+        8) bash <(curl -fsSL https://raw.githubusercontent.com/OfficialCodesHub/One-click-Cmds/refs/heads/main/ssh.sh) ;;
+        9) curl -fsSL https://tailscale.com/install.sh | sh ;;
         10)
-            echo -e "${G}AYUSHTHEWARRIOR NODE ROCKS 😎🔥${N}"
-            sleep 1
+            clear
+            glitch_typewriter "     ⚔️  SYSTEM SHUTDOWN INITIATED  ⚔️"
+            echo -e "${G}       You fought valiantly, Warrior...${N}"
+            sleep 1.3
             exit 0
             ;;
-        *)
-            echo -e "${R}Invalid Option!${N}"
-            sleep 1.5
-            ;;
+        *) echo -e "${R}   Invalid Command!${N}" ;;
     esac
+    pause
 done
