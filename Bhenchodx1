@@ -1,0 +1,11 @@
+apt update && apt install unzip -y
+apt install python3-pip -y
+apt install git -y
+git clone https://github.com/ayushmannaik45-cloud/lol
+cd lol
+unzip AVM PANEL V2.zip
+cd "AVM PANEL"
+cd "AVM PANEL"
+cd AVM
+cd AVM
+pip install -r requirements.txt
