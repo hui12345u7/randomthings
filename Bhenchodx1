@@ -3,7 +3,7 @@ apt install python3-pip -y
 apt install git -y
 git clone https://github.com/ayushmannaik45-cloud/lol
 cd lol
-unzip AVM PANEL V2.zip
+unzip 'AVM PANEL V2.zip'
 cd "AVM PANEL V2"
 cd "AVM PANEL"
 cd "AVM PANEL"
