@@ -1,0 +1,162 @@
+#!/bin/bash
+
+# Clear terminal screen for a premium hosting style interface
+clear
+echo -e "\e[36m==================================================================\e[0m"
+echo -e "\e[35m⚡      PROXMOX MASTER AUTOMATION WORK ENGINE (2026)      ⚡\e[0m"
+echo -e "\e[36m==================================================================\e[0m"
+
+# 🛑 Root check
+if [ "$EUID" -ne 0 ]; then
+  echo -e "\e[31m❌ Error: Please run this script as root user.\e[0m"
+  exit 1
+fi
+
+# 🔍 1. OS ID Check
+if [ -f /etc/os-release ]; then
+    . /etc/os-release
+    OS_NAME=$ID
+    OS_VERSION=$VERSION_ID
+else
+    echo -e "\e[31m❌ Error: OS distribution details not found.\e[0m"
+    exit 1
+fi
+
+echo -e "\e[32m[+]\e[0m Detected Platform: \e[33m$OS_NAME ($OS_VERSION)\e[0m"
+
+# 🖥️ 2. KVM vs Non-KVM Detection (Anti-Crash System)
+echo -e "\e[34m[*] Detecting Virtualization environment...\e[0m"
+VIRT_TYPE=$(systemd-detect-virt)
+echo -e "\e[32m[+]\e[0m Virtualization Type Found: \e[33m$VIRT_TYPE\e[0m"
+
+# 🌐 3. Ultimate Network Core Injector
+echo -e "\e[34m[*] Mapping primary interface and default gateway routes...\e[0m"
+HOSTNAME=$(hostname -s)
+
+MAIN_INT=$(ip route show default 2>/dev/null | awk '/default/ {print $5}')
+[ -z "$MAIN_INT" ] && MAIN_INT=$(ip -6 route show default 2>/dev/null | awk '/default/ {print $5}')
+
+if [ -z "$MAIN_INT" ]; then
+    echo -e "\e[31m❌ Error: Active network card interface not found.\e[0m"
+    exit 1
+fi
+
+MAIN_IP4=$(ip addr show dev "$MAIN_INT" | awk '/inet / {print $2}' | head -n 1)
+GATEWAY4=$(ip route show default 2>/dev/null | awk '/default/ {print $3}')
+
+# Fix loopback matrix inside hosts file safely
+sed -i "/$HOSTNAME/d" /etc/hosts
+if [ ! -z "$MAIN_IP4" ]; then
+    PURE_IP4=$(echo "$MAIN_IP4" | cut -d'/' -f1)
+    echo "$PURE_IP4 $HOSTNAME.localdomain $HOSTNAME" >> /etc/hosts
+fi
+
+# 🛠️ 4. Source Repository Cleanup & Adjustments
+echo -e "\e[34m[*] Re-linking repository layers (Bypassing Locks)...\e[0m"
+rm -f /etc/apt/sources.list.d/pve-install-repo.list
+rm -f /etc/apt/sources.list.d/pve-enterprise.list
+
+apt-get update && apt-get install -y curl wget gnupg2 software-properties-common
+
+if [ "$OS_NAME" = "ubuntu" ]; then
+    echo "deb [arch=amd64 trusted=yes] http://download.proxmox.com/debian/pve bookworm pve-no-subscription" > /etc/apt/sources.list.d/pve-install-repo.list
+else
+    echo "deb [arch=amd64] http://download.proxmox.com/debian/pve bookworm pve-no-subscription" > /etc/apt/sources.list.d/pve-install-repo.list
+    wget -qO - https://enterprise.proxmox.com/debian/proxmox-release-bookworm.gpg | gpg --dearmor -o /etc/apt/trusted.gpg.d/proxmox-release-bookworm.gpg 2>/dev/null
+fi
+
+# 🔄 5. Synchronize System Files (Smart Mode Switch)
+echo -e "\e[34m[*] Installing Proxmox VE Engine packages...\e[0m"
+apt-get update -y
+debconf-set-selections <<< "postfix postfix/main_mailer_type select Local only"
+
+# Install ifupdown2 for hotplug network reloading smoothly
+apt-get install -y ifupdown2 2>/dev/null
+
+if [ "$VIRT_TYPE" = "lxc" ] || [ "$VIRT_TYPE" = "openvz" ]; then
+    echo -e "\e[33m⚠️ Non-KVM Container detected! Skipping Kernel deployment to avoid crash...\e[0m"
+    apt-get install -y proxmox-ve postfix open-iscsi --allow-unauthenticated -y
+else
+    echo -e "\e[32m🚀 KVM Hypervisor detected! Installing Full Proxmox Kernel...\e[0m"
+    if [ "$OS_NAME" = "ubuntu" ]; then
+        apt-get install -y proxmox-ve postfix open-iscsi --fix-broken --allow-unauthenticated -y
+    else
+        apt-get install -y proxmox-default-kernel 2>/dev/null || apt-get install -y pve-kernel-helper 2>/dev/null
+        apt-get install -y proxmox-ve postfix open-iscsi chrony -y
+    fi
+fi
+
+# 🌉 6. Hardware Bridge Infrastructure (vmbr0 Injector)
+echo -e "\e[34m[*] Generating real working hardware network bridge (vmbr0)...\e[0m"
+cp /etc/network/interfaces /etc/network/interfaces.bak 2>/dev/null
+
+cat <<EOF > /etc/network/interfaces
+auto lo
+iface lo inet loopback
+
+iface $MAIN_INT inet manual
+
+auto vmbr0
+iface vmbr0 inet static
+        address $MAIN_IP4
+        gateway $GATEWAY4
+        bridge_ports $MAIN_INT
+        bridge_stp off
+        bridge_fd 0
+EOF
+
+# Activate packet forwarding for internal VM servers
+echo "net.ipv4.ip_forward=1" >> /etc/sysctl.conf
+echo "net.ipv6.conf.all.forwarding=1" >> /etc/sysctl.conf
+sysctl -p >/dev/null 2>&1
+
+# 🎛️ 7. Set Proxmox Defaults to Real Console (xterm.js) — Only for KVM Dedicated Hosts
+if [ "$VIRT_TYPE" != "lxc" ] && [ "$VIRT_TYPE" != "openvz" ]; then
+    echo -e "\e[34m[*] Creating boot-trigger for real terminal engine configurations...\e[0m"
+    cat <<'EOF' > /etc/rc.local
+#!/bin/sh -e
+sleep 10
+if [ -d /etc/pve ]; then
+    mkdir -p /etc/pve/qemu-server
+    echo "serial0: socket" >> /etc/pve/qemu-server/defaults
+    echo "vga: serial0" >> /etc/pve/qemu-server/defaults
+    rm -- "$0"
+fi
+exit 0
+EOF
+    chmod +x /etc/rc.local
+fi
+
+# 📦 8. Inject Premium OS Images & LXC Templates
+echo -e "\e[34m[*] Pre-downloading OS Images & Templates for instant VM/CT creation...\e[0m"
+ISO_DIR="/var/lib/vz/template/iso"
+LXC_DIR="/var/lib/vz/template/cache"
+mkdir -p "$ISO_DIR"
+mkdir -p "$LXC_DIR"
+
+# --- [A] ISO Download ---
+echo -e "\e[33m📦 Downloading Ubuntu Server ISO...\e[0m"
+wget -N -P "$ISO_DIR" https://releases.ubuntu.com/22.04/ubuntu-22.04.5-live-server-amd64.iso
+
+# --- [B] LXC Templates Download ---
+echo -e "\e[33m📦 Downloading Alpine Linux Template...\e[0m"
+wget -N -P "$LXC_DIR" http://download.proxmox.com/images/system/alpine-3.19-default_20240207_amd64.tar.zst
+
+echo -e "\e[33m📦 Downloading Ubuntu 22.04 Template...\e[0m"
+wget -N -P "$LXC_DIR" http://download.proxmox.com/images/system/ubuntu-22.04-default_20221201_amd64.tar.zst
+
+echo -e "\e[33m📦 Downloading Debian 12 Template...\e[0m"
+wget -N -P "$LXC_DIR" http://download.proxmox.com/images/system/debian-12-standard_12.2-1_amd64.tar.zst
+
+# 🏁 9. Final Report
+echo -e "\e[36m==================================================================\e[0m"
+if [ -f /usr/bin/pveversion ] || [ -x "$(command -v pveversion)" ] || [ "$OS_NAME" = "ubuntu" ]; then
+    echo -e "\e[32m🚀 [SUCCESS] Proxmox Layer applied successfully!\e[0m"
+    echo -e "\e[32m🔒 [CLOUDFLARE ROUTE] Target Service -> HTTPS | URL: localhost:8006\e[0m"
+    echo -e "\e[33m🔄 Rebooting VPS in 5s to apply configurations...\e[0m"
+    sleep 5
+    systemctl reboot
+else
+    echo -e "\e[31m❌ [CRITICAL] System requirements crashed during dependency compilation.\e[0m"
+fi
+echo -e "\e[36m==================================================================\e[0m"
