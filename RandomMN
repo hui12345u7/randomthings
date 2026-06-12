@@ -162,7 +162,7 @@ while true; do
     header
 
     echo -e "   ${B}01.${W} Discord Server Link${N}"
-    echo -e "   ${B}02.${W} Proxmox VE in Docker${N}"
+    echo -e "   ${B}02.${W} Proxmox VE ${N}"
     echo -e "   ${B}03.${W} VM/KVM Installer${N}"
     echo -e "   ${B}04.${W} Pterodactyl Panel${N}"
     echo -e "   ${B}05.${W} All Minecraft Panels${N}"
