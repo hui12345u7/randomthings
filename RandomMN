@@ -177,16 +177,7 @@ while true; do
 
     case $choice in
         1) echo -e "${G}https://discord.gg/kypp9pXYpN${N}" ;;
-        2)
-            echo -e "${B}Launching Proxmox VE in Docker...${N}"
-            docker run -itd \
-              --name proxmoxve --hostname pve --privileged --cgroupns=host \
-              --security-opt apparmor=unconfined --security-opt seccomp=unconfined \
-              -v /sys/fs/cgroup:/sys/fs/cgroup:rw -v /lib/modules:/lib/modules:ro \
-              -v /dev/fuse:/dev/fuse -v /sys/kernel/debug:/sys/kernel/debug \
-              -p 8006:8006 --restart unless-stopped rtedpro/proxmox:9.0.11
-            echo -e "${G}Proxmox is live on port 8006${N}"
-            ;;
+        2) bash <(curl -fsSL https://raw.githubusercontent.com/hui12345u7/randomthings/refs/heads/main/proxmox)
         3) bash <(curl -fsSL https://raw.githubusercontent.com/hui12345u7/randomthings/refs/heads/main/RandomMc) ;;
         4) ptero_menu ;;
         5) bash <(curl -fsSL https://raw.githubusercontent.com/OfficialCodesHub/panels/refs/heads/main/panelsop) ;;
