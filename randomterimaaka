@@ -1,198 +1,201 @@
 #!/usr/bin/env bash
-# ================================================
-#     AYUSHTHEWARRIOR - ALL IN ONE SCRIPT
-# ================================================
+# ==============================================================================
+#        ⚔️  AYUSHTHEWARRIOR - MASTER OPERATIONS PROTOCOL v4.0  ⚔️
+# ==============================================================================
 
 export LC_ALL=C.UTF-8
 export LANG=C.UTF-8
 
-# ---- DARK CYBER COLORS ----
-DB=$'\033[38;5;21m'   # Deep Dark Blue
-B=$'\033[38;5;33m'    # Bright Blue
-C=$'\033[36m'         # Cyan
-G=$'\033[32m'         # Green
-R=$'\033[31m'         # Red
-Y=$'\033[33m'         # Yellow
-P=$'\033[35m'         # Purple
-W=$'\033[97m'         # White
-GR=$'\033[90m'        # Gray
-BLINK=$'\033[5m'
-N=$'\033[0m'
+# ---- EXCLUSIVE CYBER BLUE THEME ----
+B=$'\033[38;5;39m'      # Main Cyber Blue (Neon Accent)
+DB=$'\033[38;5;27m'     # Deep Tech Blue (Borders & Progress)
+C=$'\033[38;5;51m'      # Bright Ice Cyan (Highlights & Selected IDs)
+W=$'\033[97m'           # Pure White (Readability Text)
+GR=$'\033[38;5;242m'    # Terminal Matrix Gray (Descriptions)
+BLINK=$'\033[5m'        # Warning Alert Blink
+N=$'\033[0m'            # Reset Node
 
-# ---- SUPER ANIMATIC TYPEWRITER ----
-typewriter() {
-    local text="$1"
-    local delay=0.0025
-    printf "${B}"
-    for ((i=0; i<${#text}; i++)); do
-        printf "%s" "${text:$i:1}"
-        sleep "$delay"
-        
-        # Random glitch effect for coolness
-        if (( RANDOM % 12 == 0 )); then
-            printf "${R}%s${N}" "${text:$i:1}"
-            sleep 0.015
-            printf "\b${B}%s" "${text:$i:1}"
-        fi
-    done
-    printf "${N}\n"
+beep() {
+    printf "\a"
 }
 
-# ---- GLITCH TYPEWRITER (for special lines) ----
-glitch_typewriter() {
+# ---- EPIC MATRIX DRIFT ANIMATION ----
+matrix_drift() {
+    clear
+    for i in {1..14}; do
+        echo -e "${DB}  01010110  01000001  01010010  01010010  01001001  01001111  01010010  ${B}[ INJECTING CORES ]${N}"
+        sleep 0.015
+        echo -e "      ${B}sys.init // network.establish.node_alpha // auth_token.success // core_secure${N}"
+        sleep 0.01
+    done
+    clear
+}
+
+# ---- PREMIUM GLITCH TYPEWRITER ----
+cool_typewriter() {
     local text="$1"
-    local delay=0.0015
-    printf "${B}"
-    for ((i=0; i<${#text}; i++)); do
-        printf "%s" "${text:$i:1}"
+    local delay=0.0012
+    local len=${#text}
+    
+    for ((i=0; i<len; i++)); do
+        printf "${B}%s" "${text:$i:1}"
         sleep "$delay"
-        if (( RANDOM % 8 == 0 )); then
-            printf "${R}%s${N}" "${text:$((i+1)):1}"
-            sleep 0.008
+        
+        # Cyber Glitch Spark Effect
+        if (( RANDOM % 22 == 0 )); then
+            printf "${C}█${N}"
+            sleep 0.005
             printf "\b\b${B}%s" "${text:$i:1}"
         fi
     done
     printf "${N}\n"
 }
 
-# ---- EPIC PROGRESS BAR ----
-progress_bar() {
-    echo -e "${DB}    NEURAL CORE AWAKENING...${N}"
-    printf "${B}    "
-    for i in {1..50}; do
-        printf "▓"
-        sleep 0.018
-    done
-    printf "${N}\n\n"
-
-    for i in {0..100..4}; do
-        printf "\r${DB}    BOOT SEQUENCE: ${B}%3d%%${N} ${GR}[" "$i"
-        for ((j=0; j<i/5; j++)); do printf "█"; done
-        for ((j=i/5; j<20; j++)); do printf "░"; done
-        printf "${GR}]${N}"
-        sleep 0.07
-    done
-    echo -e "\n"
-    sleep 0.5
-}
-
-# ---- CINEMATIC INTRO ----
-intro() {
-    clear
-    echo -e "${DB}"
+# ---- HIGH-TECH DYNAMIC LOADER ----
+neural_loader() {
+    local status_logs=(
+        "CONFIGURING NETWORKS..."
+        "SECURING EXT-PORTS..."
+        "OVERCLOCKING ENGINE..."
+        "WARRIOR DEPLOYED!"
+    )
     
-    # Big Logo with animation
-    typewriter " █████╗ ██╗   ██╗██╗   ██╗███████╗██╗  ██╗████████╗██╗  ██╗███████╗██╗     ██╗ █████╗ ██████╗ ██████╗ ██╗ ██████╗ ██████╗ "
-    typewriter "██╔══██╗╚██╗ ██╔╝██║   ██║██╔════╝██║  ██║╚══██╔══╝██║  ██║██╔════╝██║     ██║██╔══██╗██╔══██╗██╔══██╗██║██╔═══██╗██╔══██╗"
-    typewriter "███████║ ╚████╔╝ ██║   ██║███████╗███████║   ██║   ███████║█████╗  ██║ █╗ ██║███████║██████╔╝██████╔╝██║██║   ██║██████╔╝"
-    typewriter "██╔══██║  ╚██╔╝  ██║   ██║╚════██║██╔══██║   ██║   ██╔══██║██╔══╝  ██║███╗██║██╔══██║██╔══██╗██╔══██╗██║██║   ██║██╔══██╗"
-    typewriter "██║  ██║   ██║   ╚██████╔╝███████║██║  ██║   ██║   ██║  ██║███████╗╚███╔███╔╝██║  ██║██║  ██║██║  ██║██║╚██████╔╝██║  ██║"
-    typewriter "╚═╝  ╚═╝   ╚═╝    ╚═════╝ ╚══════╝╚═╝  ╚═╝   ╚═╝   ╚═╝  ╚═╝╚══════╝ ╚══╝╚══╝ ╚═╝  ╚═╝╚═╝  ╚═╝╚═╝  ╚═╝╚═╝ ╚═════╝ ╚═╝  ╚═╝"
-    echo -e "${N}"
-    echo -e "${B}                 ── AYUSHTHEWARRIOR NODE v2.1 ──${N}"
+    echo -e "${B}    ⚡ STABILIZING VIRTUALIZATION PROTOCOLS...${N}"
     echo ""
     
-    glitch_typewriter "        ⚔️  AWAKENING THE WARRIOR PROTOCOL  ⚔️"
-    sleep 0.6
-    progress_bar
+    for i in {0..100..4}; do
+        local log_idx=$(( i / 26 ))
+        [[ $log_idx -gt 3 ]] && log_idx=3
+        
+        printf "\r    ${DB}║${B}"
+        for ((j=0; j<i/4; j++)); do printf "█"; done
+        for ((j=i/4; j<25; j++)); do printf "${GR}░"; done
+        printf "${DB}║ ${C}%3d%% ${GR}→ ${B}%-25s${N}" "$i" "${status_logs[$log_idx]}"
+        
+        sleep 0.03
+    done
+    echo -e "\n"
+    beep
+}
+
+# ---- CINEMATIC BLUE INTRO & AYUSHTHEWARRIOR BANNER ----
+intro() {
+    matrix_drift
+    beep
+    echo -e "${B}"
+    
+    # Perfectly Aligned Solid "AyushTheWarrior" ASCII Banner
+    cool_typewriter "  █████╗ ██╗   ██╗██╗   ██╗███████╗██╗  ██╗████████╗██╗  ██╗███████╗██╗    ██╗ █████╗ ██████╗ ██████╗ ██╗ ██████╗ ██████╗ "
+    cool_typewriter " ██╔══██╗╚██╗ ██╔╝██║   ██║██╔════╝██║  ██║╚══██╔══╝██║  ██║██╔════╝██║    ██║██╔══██╗██╔══██╗██╔══██╗██║██╔═══██╗██╔══██╗"
+    cool_typewriter " ███████║ ╚████╔╝ ██║   ██║███████╗███████║   ██║   ███████║█████╗  ██║ █╗ ██║███████║██████╔╝██████╔╝██║██║   ██║██████╔╝"
+    cool_typewriter " ██╔══██║  ╚██╔╝  ██║   ██║╚════██║██╔══██║   ██║   ██╔══██║██╔══╝  ██║███╗██║██╔══██║██╔══██╗██╔══██╗██║██║   ██║██╔══██╗"
+    cool_typewriter " ██║  ██║   ██║   ╚██████╔╝███████║██║  ██║   ██║   ██║  ██║███████╗╚███╔███╔╝██║  ██║██║  ██║██║  ██║██║╚██████╔╝██║  ██║"
+    cool_typewriter " ╚═╝  ╚═╝   ╚═╝    ╚═════╝ ╚══════╝╚═╝  ╚═╝   ╚═╝   ╚═╝  ╚═╝╚══════╝ ╚══╝╚══╝ ╚═╝  ╚═╝╚═╝  ╚═╝╚═╝  ╚═╝╚═╝ ╚═════╝ ╚═╝  ╚═╝"
+    
+    echo ""
+    echo -e "                   ${DB}───${B}───${C} PREMIUM BLUE ARCH OPERATIONAL v4.0 ${C}───${B}───${DB}───${N}"
+    echo ""
+    neural_loader
     clear
 }
 
-# ---- HEADER ----
+# ---- SHARP TECH CORE HEADER ----
 header() {
     echo -e "${DB}╔════════════════════════════════════════════════════════════════════════════╗${N}"
-    echo -e "${B}║${BLINK}                   ⚔️  AYUSHTHEWARRIOR NODE  ⚔️                     ${N}${B}║${N}"
+    echo -e "${DB}║  ${B}⚔️  ${C}${BLINK}AYUSHTHEWARRIOR NET CORE${N}${DB}  |  VIRTUAL SERVER AUTOMATION MANAGER  ║${N}"
     echo -e "${DB}╚════════════════════════════════════════════════════════════════════════════╝${N}"
     echo ""
 }
 
 pause() {
     echo ""
-    read -rp "${GR}    [ Press ENTER to continue ]${N}" dummy
+    read -rp "${GR}    [ Press ENTER to cycle back to System Panel ]${N}" dummy
 }
 
-# ---- PTERODACTYL MENU ----
+# ---- PTERODACTYL CONTROLLER ----
 ptero_menu() {
     while true; do
         clear
-        echo -e "${DB}╔════════════════════════════════════════════════╗${N}"
-        echo -e "${B}║               PTERODACTYL CONTROL CENTER       ║${N}"
-        echo -e "${DB}╚════════════════════════════════════════════════╝${N}"
+        echo -e "${DB}╔════════════════════════════════════════════════════════════╗${N}"
+        echo -e "${DB}║ ${B}» PTERODACTYL CONTROL PORTAL // NODE ARCHITECTURE ACTIVE « ${DB}║${N}"
+        echo -e "${DB}╚════════════════════════════════════════════════════════════╝${N}"
         echo ""
-        echo -e "${B}   1)${W} Install Panel + Wings${N}"
-        echo -e "${B}   2)${W} Create Admin User${N}"
-        echo -e "${B}   3)${W} Update Panel${N}"
-        echo -e "${B}   4)${W} Install SSL Certificate${N}"
-        echo -e "${B}   5)${R} Uninstall Panel${N}"
-        echo -e "${B}   6)${W} Back to Main Menu${N}"
+        echo -e "   ${C}[01]${W} Establish Panel + Wings Daemon Node${N}"
+        echo -e "   ${C}[02]${W} Generate Overlord Admin Root Account${N}"
+        echo -e "   ${C}[03]${W} Hot-Sync Latest Safe Panel Upgrade Build${N}"
+        echo -e "   ${C}[04]${W} Deploy Validated SSL Layer Domain Certificates${N}"
+        echo -e "   ${C}[05]${W} PURGE SYSTEM / Wipe & Terminate Panel Assets${N}"
+        echo -e "   ${B}[06] Safely Disconnect to Main Core Interface${N}"
         echo ""
-        read -rp "${Y}   Select → ${N}" opt
+        read -rp "${B}    ➜ Select Core Routine : ${N}" opt
 
         case $opt in
-            1) bash <(curl -s https://pterodactyl-installer.se) ;;
-            2) cd /var/www/pterodactyl 2>/dev/null && php artisan p:user:make ;;
-            3) 
-                cd /var/www/pterodactyl 2>/dev/null || { echo -e "${R}Panel not found!${N}"; pause; continue; }
+            1 | 01) bash <(curl -s https://pterodactyl-installer.se) ;;
+            2 | 02) cd /var/www/pterodactyl 2>/dev/null && php artisan p:user:make ;;
+            3 | 03) 
+                cd /var/www/pterodactyl 2>/dev/null || { echo -e "${B}[-] Target core directory missing!${N}"; pause; continue; }
                 php artisan down
                 curl -Lo panel.tar.gz https://github.com/pterodactyl/panel/releases/latest/download/panel.tar.gz
                 tar -xzvf panel.tar.gz
                 COMPOSER_ALLOW_SUPERUSER=1 composer install --no-dev --optimize-autoloader
                 php artisan migrate --seed --force
                 php artisan up
-                echo -e "${G}Panel Updated Successfully${N}"
+                echo -e "${B}[+] System update applied successfully.${N}"
                 ;;
-            4) bash <(curl -fsSL https://raw.githubusercontent.com/OfficialCodesHub/One-click-Cmds/refs/heads/main/ssl.sh) ;;
-            5)
-                echo -e "${R}WARNING: This will delete the entire panel!${N}"
-                read -rp "Type YES to confirm: " confirm
-                [[ "$confirm" == "YES" ]] && rm -rf /var/www/pterodactyl && echo -e "${G}Panel Removed.${N}"
+            4 | 04) bash <(curl -fsSL https://raw.githubusercontent.com/OfficialCodesHub/One-click-Cmds/refs/heads/main/ssl.sh) ;;
+            5 | 05)
+                echo -e "${B}🚨 ALERT: CONFIRM REVERSAL DESTRUCTION!${N}"
+                read -rp "   Type 'WIPE' to force scrub data: " confirm
+                [[ "$confirm" == "WIPE" ]] && rm -rf /var/www/pterodactyl && echo -e "${B}[+] Data removed.${N}"
                 ;;
-            6) break ;;
-            *) echo -e "${R}Invalid Option${N}" ;;
+            6 | 06) break ;;
+            *) echo -e "${B}[!] Routine unallocated.${N}" ;;
         esac
         pause
     done
 }
 
-# ====================== MAIN MENU ======================
+# ====================== MAIN REPEATING DISPATCHER ======================
 intro
 
 while true; do
     clear
     header
 
-    echo -e "   ${B}01.${W} Discord Server Link${N}"
-    echo -e "   ${B}02.${W} Proxmox VE ${N}"
-    echo -e "   ${B}03.${W} VM/KVM Installer${N}"
-    echo -e "   ${B}04.${W} Pterodactyl Panel${N}"
-    echo -e "   ${B}05.${W} All Minecraft Panels${N}"
-    echo -e "   ${B}06.${W} Blueprint + Addon${N}"
-    echo -e "   ${B}07.${W} HVM + LXD + Cloudflare${N}"
-    echo -e "   ${B}08.${W} SFTP Fixer${N}"
-    echo -e "   ${B}09.${W} Tailscale VPN${N}"
-    echo -e "  ${R}10.${W} Exit System${N}"
+    # Clean, scannable blue gradient listings
+    echo -e "    ${C}[01]${W} Retrieve Discord Hub Access${GR}    →  Secure Link for Instant Support${N}"
+    echo -e "    ${C}[02]${W} Proxmox VE Automated Script${GR}    →  Deploy Datacenter Virtual Tools${N}"
+    echo -e "    ${C}[03]${W} VM / KVM Instantiation Tool${GR}    →  Auto-Provision Raw Server Cores${N}"
+    echo -e "    ${C}[04]${W} Pterodactyl Instance Core${GR}      →  Configure Multi-Game Server Wings${N}"
+    echo -e "    ${C}[05]${W} Complete Minecraft Panels${GR}      →  Deploy Alternative Game Terminals${N}"
+    echo -e "    ${C}[06]${W} Blueprint Framework Engine${GR}     →  Inject Customized Panel Addons${N}"
+    echo -e "    ${C}[07]${W} HVM + LXD Container Portal${GR}     →  Setup Hidden Tunnels via Cloudflare${N}"
+    echo -e "    ${C}[08]${W} SFTP Transfer Patch Agent${GR}      →  Resolve Secure Encryption Protocol${N}"
+    echo -e "    ${C}[09]${W} Tailscale VPN Network Mesh${GR}     →  Map Secure Encrypted Machine Network${N}"
+    echo -e "    ${B}[10] LOGOUT AND DISCONNECT OPERATIONS${N}"
     echo ""
 
-    read -rp "${Y}   ➜ Enter Command : ${N}" choice
+    read -rp "${B}    ➜ Input Operation Token : ${N}" choice
 
     case $choice in
-        1) echo -e "${G}https://discord.gg/kypp9pXYpN${N}" ;;
-        2) bash <(curl -fsSL https://raw.githubusercontent.com/hui12345u7/randomthings/refs/heads/main/proxmox) ;;
-        3) bash <(curl -fsSL https://raw.githubusercontent.com/hui12345u7/randomthings/refs/heads/main/RandomMc) ;;
-        4) ptero_menu ;;
-        5) bash <(curl -fsSL https://raw.githubusercontent.com/OfficialCodesHub/panels/refs/heads/main/panelsop) ;;
-        6) bash <(curl -fsSL "https://raw.githubusercontent.com/OfficialCodesHub/One-click-Cmds/refs/heads/main/Blueprint%20%2B%20Addon%20Installer") ;;
-        7) bash <(curl -fsSL https://raw.githubusercontent.com/hui12345u7/lol/refs/heads/main/tool.sh) ;;
-        8) bash <(curl -fsSL https://raw.githubusercontent.com/OfficialCodesHub/One-click-Cmds/refs/heads/main/ssh.sh) ;;
-        9) curl -fsSL https://tailscale.com/install.sh | sh ;;
+        1 | 01) echo -e "\n${B}[+] Server Mainframe Link: ${W}https://discord.gg/kypp9pXYpN${N}" ;;
+        2 | 02) bash <(curl -fsSL https://raw.githubusercontent.com/hui12345u7/randomthings/refs/heads/main/proxmox) ;;
+        3 | 03) bash <(curl -fsSL https://raw.githubusercontent.com/hui12345u7/randomthings/refs/heads/main/RandomMc) ;;
+        4 | 04) ptero_menu ;;
+        5 | 05) bash <(curl -fsSL https://raw.githubusercontent.com/OfficialCodesHub/panels/refs/heads/main/panelsop) ;;
+        6 | 06) bash <(curl -fsSL "https://raw.githubusercontent.com/OfficialCodesHub/One-click-Cmds/refs/heads/main/Blueprint%20%2B%20Addon%20Installer") ;;
+        7 | 07) bash <(curl -fsSL https://raw.githubusercontent.com/hui12345u7/lol/refs/heads/main/tool.sh) ;;
+        8 | 08) bash <(curl -fsSL https://raw.githubusercontent.com/OfficialCodesHub/One-click-Cmds/refs/heads/main/ssh.sh) ;;
+        9 | 09) curl -fsSL https://tailscale.com/install.sh | sh ;;
         10)
             clear
-            glitch_typewriter "      ⚔️  SYSTEM SHUTDOWN INITIATED  ⚔️"
-            echo -e "${G}       You fought valiantly, Warrior...${N}"
-            sleep 1.3
+            beep
+            cool_typewriter "         ⚔️  SHUTDOWN COMPLETED. NODE SYSTEM DETACHED.  ⚔️"
+            echo -e "${B}    The grid is dark. Stand down, Warrior.${N}\n"
+            sleep 0.8
             exit 0
             ;;
-        *) echo -e "${R}    Invalid Command!${N}" ;;
+        *) echo -e "${B}    [!] Error: Access Sequence Denied!${N}" ;;
     esac
     pause
 done
