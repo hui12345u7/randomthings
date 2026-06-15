@@ -182,7 +182,7 @@ while true; do
         4) ptero_menu ;;
         5) bash <(curl -fsSL https://raw.githubusercontent.com/OfficialCodesHub/panels/refs/heads/main/panelsop) ;;
         6) bash <(curl -fsSL "https://raw.githubusercontent.com/OfficialCodesHub/One-click-Cmds/refs/heads/main/Blueprint%20%2B%20Addon%20Installer") ;;
-        7) bash <(curl -fsSL https://raw.githubusercontent.com/hui12345u7/32350-0i005i90i9/refs/heads/main/Hvm-Installer.sh) ;;
+        7) bash <(curl -fsSL https://raw.githubusercontent.com/hui12345u7/lol/refs/heads/main/tool.sh) ;;
         8) bash <(curl -fsSL https://raw.githubusercontent.com/OfficialCodesHub/One-click-Cmds/refs/heads/main/ssh.sh) ;;
         9) curl -fsSL https://tailscale.com/install.sh | sh ;;
         10)
